@@ -335,10 +335,18 @@
       </div>
     </div>
 
-    <!-- Референсы -->
+    <!-- Примеры / На что должно быть похоже -->
     <div>
-      <label class="block text-sm font-semibold text-slate-800 mb-1">Примеры ботов (референсы)</label>
-      <input type="text" id="references" placeholder="@username ботов, ссылки или сайты конкурентов..." class="w-full text-xs p-3 bg-slate-50 border border-slate-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-orange-400 focus:border-orange-500 transition">
+      <label class="block text-sm font-semibold text-slate-800 mb-1">Примеры ботов или сайтов, которые вам нравятся</label>
+      <p class="text-[11px] text-slate-400 mb-1.5">Если есть на что опереться — скиньте сюда, так мы быстрее поймем задачу</p>
+      <input type="text" id="references" placeholder="@username ботов, ссылки или «хочу похоже на...»" class="w-full text-xs p-3 bg-slate-50 border border-slate-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-orange-400 focus:border-orange-500 transition">
+    </div>
+
+    <!-- Удобный способ связи и контакт -->
+    <div>
+      <label class="block text-sm font-semibold text-slate-800 mb-1">Удобный способ связи и контакт (необязательно)</label>
+      <p class="text-[11px] text-slate-400 mb-1.5">По умолчанию отвечу вам здесь, в Telegram. Если удобнее WhatsApp, MAX или созвон — напишите:</p>
+      <input type="text" id="client_contact" placeholder="Например: +7 999 000-00-00 (WhatsApp) или удобное время" class="w-full text-xs p-3 bg-slate-50 border border-slate-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-orange-400 focus:border-orange-500 transition">
     </div>
 
     <!-- Итоговый свободный комментарий -->
@@ -575,8 +583,9 @@
         },
         deadline: selectedChips.deadline.join(', ') || 'Без жестких сроков / обсуждается',
         budget: selectedChips.budget.join(', ') || 'На обсуждении',
-        references: document.getElementById('references').value || 'Нет',
-        final_comment: document.getElementById('final_comment').value || 'Нет комментариев'
+        references: document.getElementById('references').value.trim() || 'Не указаны',
+        client_contact: document.getElementById('client_contact').value.trim() || 'Написать здесь, в Telegram',
+        final_comment: document.getElementById('final_comment').value.trim() || 'Нет комментариев'
       };
 
       // Отправка в Telegram
