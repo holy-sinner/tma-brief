@@ -22,9 +22,19 @@
       font-weight: 600;
       box-shadow: 0 1px 3px rgba(249, 115, 22, 0.15);
     }
+    .field-error {
+      border-color: #f43f5e !important;
+      background-color: #fff1f2 !important;
+    }
   </style>
 </head>
 <body class="p-4 max-w-md mx-auto text-slate-800 pb-24">
+
+  <!-- Toast ошибка валидации -->
+  <div id="toast" class="fixed top-4 left-4 right-4 max-w-md mx-auto bg-rose-500 text-white text-xs font-semibold px-4 py-3 rounded-xl shadow-lg transition-all duration-300 transform -translate-y-20 opacity-0 z-50 flex items-center justify-between">
+    <span id="toast-msg">Пожалуйста, заполните обязательные поля</span>
+    <span class="text-sm font-bold cursor-pointer" onclick="hideToast()">✕</span>
+  </div>
 
   <!-- Header -->
   <div class="mb-4 text-center">
@@ -34,7 +44,7 @@
       </svg>
     </div>
     <h1 class="text-xl font-bold text-slate-900">Конструктор ТЗ для бота</h1>
-    <p class="text-xs text-slate-500 mt-1">Ответьте на вопросы в удобном формате или пропустите то, что пока не решили</p>
+    <p class="text-xs text-slate-500 mt-1">Поля со звёздочкой <span class="text-rose-500 font-bold">*</span> обязательны для заполнения</p>
     
     <!-- Progress Bar -->
     <div class="w-full bg-slate-200 h-1.5 rounded-full mt-3 overflow-hidden">
@@ -48,9 +58,11 @@
 
   <!-- ШАГ 1: Сфера и идея проекта -->
   <div id="step-1" class="step-card bg-white rounded-2xl p-5 border border-orange-100 shadow-sm space-y-4">
-    <div>
-      <label class="block text-sm font-semibold text-slate-800 mb-1">01. Сфера вашего бизнеса или проекта</label>
-      <p class="text-xs text-slate-400 mb-2.5">Выберите подходящие направления или опишите своё:</p>
+    <div id="group-niche">
+      <label class="block text-sm font-semibold text-slate-800 mb-1">
+        01. Сфера вашего бизнеса или проекта <span class="text-rose-500 font-bold">*</span>
+      </label>
+      <p class="text-xs text-slate-400 mb-2.5">Выберите подходящее направление или опишите своё ниже:</p>
       
       <div class="flex flex-wrap gap-2 mb-3">
         <button type="button" onclick="toggleChip(this, 'niche')" class="chip px-3 py-1.5 bg-slate-50 border border-slate-200 rounded-xl text-xs text-slate-600 transition">💇 Салоны / Бьюти</button>
@@ -67,12 +79,14 @@
         <button type="button" onclick="toggleChip(this, 'niche')" class="chip px-3 py-1.5 bg-slate-50 border border-slate-200 rounded-xl text-xs text-slate-600 transition">🌐 Другое направление</button>
       </div>
 
-      <label class="block text-xs font-semibold text-slate-700 mb-1">Опишите проект своими словами (удобно писать подробно):</label>
+      <label class="block text-xs font-semibold text-slate-700 mb-1">Опишите проект своими словами (если не нашли в списке):</label>
       <textarea id="project_desc" rows="3" placeholder="Расскажите о вашей идее или компании: чем занимаетесь, какие услуги продаете, кто ваши клиенты..." class="w-full text-xs p-3 bg-slate-50 border border-slate-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-orange-400 focus:border-orange-500 transition leading-relaxed"></textarea>
     </div>
 
-    <div>
-      <label class="block text-sm font-semibold text-slate-800 mb-1">Что в первую очередь должен автоматизировать бот?</label>
+    <div id="group-automation">
+      <label class="block text-sm font-semibold text-slate-800 mb-1">
+        Что в первую очередь должен автоматизировать бот? <span class="text-rose-500 font-bold">*</span>
+      </label>
       <p class="text-[11px] text-slate-400 mb-1.5">Какая рутина сейчас отнимает больше всего времени?</p>
       <textarea id="automation_goal" rows="3" placeholder="Например: сейчас вручную отвечаю на одни и те же вопросы в директе, долго рассчитываю смету, теряются заявки или хочу собирать оплаты без участия менеджера..." class="w-full text-xs p-3 bg-slate-50 border border-slate-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-orange-400 focus:border-orange-500 transition leading-relaxed"></textarea>
     </div>
@@ -80,9 +94,11 @@
 
   <!-- ШАГ 2: Платформы и визуал приветствия -->
   <div id="step-2" class="step-card bg-white rounded-2xl p-5 border border-orange-100 shadow-sm space-y-4 hidden">
-    <div>
-      <label class="block text-sm font-semibold text-slate-800 mb-1">02. Где должен работать бот?</label>
-      <p class="text-[11px] text-slate-400 mb-2">Выберите мессенджеры и платформы для запуска:</p>
+    <div id="group-platforms">
+      <label class="block text-sm font-semibold text-slate-800 mb-1">
+        02. Где должен работать бот? <span class="text-rose-500 font-bold">*</span>
+      </label>
+      <p class="text-[11px] text-slate-400 mb-2">Выберите хотя бы одну платформу:</p>
       <div class="flex flex-wrap gap-2 mb-3">
         <button type="button" onclick="toggleChip(this, 'platforms')" class="chip px-3 py-1.5 bg-slate-50 border border-slate-200 rounded-xl text-xs text-slate-600 transition chip-active">✈️ Telegram</button>
         <button type="button" onclick="toggleChip(this, 'platforms')" class="chip px-3 py-1.5 bg-slate-50 border border-slate-200 rounded-xl text-xs text-slate-600 transition">💬 WhatsApp</button>
@@ -131,11 +147,11 @@
     </div>
   </div>
 
-  <!-- ШАГ 3: Базовые функции и модули (Пухлые свитчеры) -->
+  <!-- ШАГ 3: Базовые функции и модули -->
   <div id="step-3" class="step-card bg-white rounded-2xl p-5 border border-orange-100 shadow-sm space-y-4 hidden">
     <div>
       <label class="block text-sm font-semibold text-slate-800 mb-1">03. Базовые модули и функции</label>
-      <p class="text-xs text-slate-400 mb-3">Включите нужные опции приятными переключателями:</p>
+      <p class="text-xs text-slate-400 mb-3">Выберите нужные опции:</p>
       
       <div class="space-y-3">
         <!-- Оплата -->
@@ -216,7 +232,7 @@
     </div>
   </div>
 
-  <!-- ШАГ 4: Искусственный Интеллект и нейросети (Апсейл) -->
+  <!-- ШАГ 4: Искусственный Интеллект и нейросети -->
   <div id="step-4" class="step-card bg-white rounded-2xl p-5 border border-orange-100 shadow-sm space-y-4 hidden">
     <div>
       <div class="inline-block px-2.5 py-0.5 bg-amber-100 text-amber-800 rounded-full text-[10px] font-bold uppercase tracking-wider mb-1">Инновации</div>
@@ -295,7 +311,7 @@
     <!-- Сроки разработки -->
     <div>
       <label class="block text-sm font-semibold text-slate-800 mb-1">05. Желаемые сроки запуска (необязательно)</label>
-      <p class="text-[11px] text-slate-400 mb-2">Выберите срок или оставьте пустым, если спешки нет:</p>
+      <p class="text-[11px] text-slate-400 mb-2">Выберите срок или оставьте пустым:</p>
       <div class="flex flex-wrap gap-2 mb-3">
         <button type="button" onclick="toggleChip(this, 'deadline')" class="chip px-3 py-1.5 bg-slate-50 border border-slate-200 rounded-xl text-xs text-slate-600 transition">⚡ 1–3 дня (Срочно)</button>
         <button type="button" onclick="toggleChip(this, 'deadline')" class="chip px-3 py-1.5 bg-slate-50 border border-slate-200 rounded-xl text-xs text-slate-600 transition">🚀 3–5 дней</button>
@@ -305,8 +321,11 @@
     </div>
 
     <!-- Бюджет -->
-    <div>
-      <label class="block text-sm font-semibold text-slate-800 mb-1">Ориентир по бюджету</label>
+    <div id="group-budget">
+      <label class="block text-sm font-semibold text-slate-800 mb-1">
+        Ориентир по бюджету <span class="text-rose-500 font-bold">*</span>
+      </label>
+      <p class="text-[11px] text-slate-400 mb-2">Выберите вилку или нажмите «Нужна консультация»:</p>
       <div class="flex flex-wrap gap-2 mb-3">
         <button type="button" onclick="toggleChip(this, 'budget')" class="chip px-3 py-1.5 bg-slate-50 border border-slate-200 rounded-xl text-xs text-slate-600 transition">До 30 000 ₽</button>
         <button type="button" onclick="toggleChip(this, 'budget')" class="chip px-3 py-1.5 bg-slate-50 border border-slate-200 rounded-xl text-xs text-slate-600 transition">30 000 – 60 000 ₽</button>
@@ -331,12 +350,12 @@
 
     <div class="p-3 bg-orange-50 rounded-xl border border-orange-200 text-xs text-orange-800 space-y-1">
       <div class="font-semibold flex items-center gap-1.5"><span>✨</span> ТЗ готово к отправке разработчику!</div>
-      <p class="text-[11px] text-orange-700 leading-snug">После отправки я детально изучу задачу и подготовлю для вас оптимальную схему реализации и точный расчет.</p>
+      <p class="text-[11px] text-orange-700 leading-snug">После нажатия кнопки окно закроется, а заявка мгновенно поступит разработчику.</p>
     </div>
   </div>
 
   <!-- Фиксированное нижнее меню навигации -->
-  <div class="fixed bottom-0 left-0 right-0 p-4 bg-white/95 backdrop-blur-md border-t border-orange-100 flex items-center justify-between max-w-md mx-auto z-50">
+  <div class="fixed bottom-0 left-0 right-0 p-4 bg-white/95 backdrop-blur-md border-t border-orange-100 flex items-center justify-between max-w-md mx-auto z-40">
     <button type="button" id="prev-btn" onclick="prevStep()" class="text-xs font-semibold text-slate-500 px-4 py-2.5 rounded-xl transition hover:bg-slate-100 hidden">
       ← Назад
     </button>
@@ -375,6 +394,19 @@
       "Сроки и бюджет"
     ];
 
+    function showToast(msg) {
+      const toast = document.getElementById('toast');
+      document.getElementById('toast-msg').textContent = msg;
+      toast.classList.remove('-translate-y-20', 'opacity-0');
+      if (tg?.HapticFeedback) tg.HapticFeedback.notificationOccurred('error');
+      setTimeout(hideToast, 3500);
+    }
+
+    function hideToast() {
+      const toast = document.getElementById('toast');
+      toast.classList.add('-translate-y-20', 'opacity-0');
+    }
+
     function haptic() {
       if (tg?.HapticFeedback) {
         tg.HapticFeedback.impactOccurred('light');
@@ -409,6 +441,43 @@
       }
     }
 
+    function validateCurrentStep() {
+      if (currentStep === 1) {
+        const hasNiche = selectedChips.niche.length > 0 || document.getElementById('project_desc').value.trim().length > 0;
+        const hasGoal = document.getElementById('automation_goal').value.trim().length > 0;
+
+        if (!hasNiche) {
+          showToast('Пожалуйста, выберите сферу бизнеса или опишите проект');
+          document.getElementById('group-niche').scrollIntoView({ behavior: 'smooth' });
+          return false;
+        }
+        if (!hasGoal) {
+          showToast('Пожалуйста, укажите, что бот должен автоматизировать');
+          document.getElementById('automation_goal').classList.add('field-error');
+          document.getElementById('automation_goal').focus();
+          return false;
+        }
+        document.getElementById('automation_goal').classList.remove('field-error');
+      }
+
+      if (currentStep === 2) {
+        if (selectedChips.platforms.length === 0) {
+          showToast('Пожалуйста, выберите хотя бы одну платформу (например, Telegram)');
+          return false;
+        }
+      }
+
+      if (currentStep === 5) {
+        if (selectedChips.budget.length === 0) {
+          showToast('Пожалуйста, выберите ориентир по бюджету или «Нужна консультация»');
+          document.getElementById('group-budget').scrollIntoView({ behavior: 'smooth' });
+          return false;
+        }
+      }
+
+      return true;
+    }
+
     function updateView() {
       for (let i = 1; i <= totalSteps; i++) {
         document.getElementById(`step-${i}`).classList.add('hidden');
@@ -430,17 +499,24 @@
         prevBtn.classList.remove('hidden');
       }
 
-      if (currentStep === totalSteps) {
-        nextBtn.textContent = 'Отправить ТЗ 🚀';
+      // Кнопка пропустить скрыта на шагах с обязательными полями
+      if (currentStep === 1 || currentStep === 2 || currentStep === 5) {
         skipBtn.classList.add('hidden');
       } else {
-        nextBtn.textContent = 'Далее →';
         skipBtn.classList.remove('hidden');
+      }
+
+      if (currentStep === totalSteps) {
+        nextBtn.textContent = 'Отправить ТЗ 🚀';
+      } else {
+        nextBtn.textContent = 'Далее →';
       }
       window.scrollTo({ top: 0, behavior: 'smooth' });
     }
 
     function nextStep() {
+      if (!validateCurrentStep()) return;
+
       haptic();
       if (currentStep < totalSteps) {
         currentStep++;
@@ -459,16 +535,24 @@
     }
 
     function skipStep() {
-      nextStep();
+      haptic();
+      currentStep++;
+      updateView();
     }
 
     function submitTZ() {
+      if (!validateCurrentStep()) return;
+
       if (tg?.HapticFeedback) {
         tg.HapticFeedback.notificationOccurred('success');
       }
 
+      const nextBtn = document.getElementById('next-btn');
+      nextBtn.disabled = true;
+      nextBtn.textContent = 'Отправка... ⏳';
+
       const result = {
-        niche: selectedChips.niche.join(', ') || 'Не указано',
+        niche: selectedChips.niche.join(', ') || document.getElementById('project_desc').value || 'Не указано',
         project_desc: document.getElementById('project_desc').value || 'Не заполнено',
         automation_goal: document.getElementById('automation_goal').value || 'Не заполнено',
         platforms: selectedChips.platforms.join(', ') || 'Telegram',
@@ -495,10 +579,20 @@
         final_comment: document.getElementById('final_comment').value || 'Нет комментариев'
       };
 
+      // Отправка в Telegram
       if (tg && tg.sendData) {
-        tg.sendData(JSON.stringify(result));
+        try {
+          tg.sendData(JSON.stringify(result));
+          setTimeout(() => { tg.close(); }, 300);
+        } catch (e) {
+          alert('Ошибка отправки через Telegram: ' + e);
+          nextBtn.disabled = false;
+          nextBtn.textContent = 'Отправить ТЗ 🚀';
+        }
       } else {
         alert('🎉 ТЗ сформировано!\n\n' + JSON.stringify(result, null, 2));
+        nextBtn.disabled = false;
+        nextBtn.textContent = 'Отправить ТЗ 🚀';
       }
     }
 
