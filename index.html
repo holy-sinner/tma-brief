@@ -8,19 +8,19 @@
   <script src="https://telegram.org/js/telegram-web-app.js"></script>
   <style>
     body {
-      background: #faf8f5;
+      background: #f8f1ea;
       font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
       -webkit-tap-highlight-color: transparent;
     }
     .accent-gradient {
-      background: linear-gradient(135deg, #f97316 0%, #f59e0b 100%);
+      background: linear-gradient(135deg, #ea580c 0%, #d9480f 100%);
     }
     .chip-active {
-      background-color: #ffedd5 !important;
-      border-color: #f97316 !important;
-      color: #c2410c !important;
+      background-color: #ea580c !important;
+      border-color: #ea580c !important;
+      color: #ffffff !important;
       font-weight: 600;
-      box-shadow: 0 1px 3px rgba(249, 115, 22, 0.15);
+      box-shadow: 0 2px 6px rgba(234, 88, 12, 0.28);
     }
     .field-error {
       border-color: #f43f5e !important;
@@ -28,7 +28,7 @@
     }
   </style>
 </head>
-<body class="p-4 max-w-md mx-auto text-slate-800 pb-24">
+<body class="p-4 max-w-md mx-auto text-stone-800 pb-24">
 
   <!-- Toast ошибка валидации -->
   <div id="toast" class="fixed top-4 left-4 right-4 max-w-md mx-auto bg-rose-500 text-white text-xs font-semibold px-4 py-3 rounded-xl shadow-lg transition-all duration-300 transform -translate-y-20 opacity-0 z-50 flex items-center justify-between">
@@ -38,194 +38,185 @@
 
   <!-- Header -->
   <div class="mb-4 text-center">
-    <div class="inline-flex items-center justify-center w-12 h-12 rounded-2xl accent-gradient text-white shadow-md mb-2">
+    <div class="inline-flex items-center justify-center w-12 h-12 rounded-2xl accent-gradient text-white shadow-md shadow-orange-700/20 mb-2">
       <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z" />
       </svg>
     </div>
-    <h1 class="text-xl font-bold text-slate-900">Конструктор ТЗ для бота</h1>
-    <p class="text-xs text-slate-500 mt-1">Поля со звёздочкой <span class="text-rose-500 font-bold">*</span> обязательны для заполнения</p>
+    <h1 class="text-xl font-bold text-stone-900">Конструктор ТЗ для бота</h1>
+    <p class="text-xs text-stone-500 mt-1">Поля со звёздочкой <span class="text-rose-500 font-bold">*</span> обязательны для заполнения</p>
     
     <!-- Progress Bar -->
-    <div class="w-full bg-slate-200 h-1.5 rounded-full mt-3 overflow-hidden">
+    <div class="w-full bg-stone-200/80 h-1.5 rounded-full mt-3 overflow-hidden">
       <div id="progress-bar" class="accent-gradient h-full transition-all duration-300" style="width: 20%"></div>
     </div>
-    <div class="flex justify-between text-[11px] text-slate-400 mt-1 px-1">
+    <div class="flex justify-between text-[11px] text-stone-500 mt-1 px-1">
       <span id="step-counter">Шаг 1 из 5</span>
       <span id="step-title">Сфера и проект</span>
     </div>
   </div>
 
   <!-- ШАГ 1: Сфера и идея проекта -->
-  <div id="step-1" class="step-card bg-white rounded-2xl p-5 border border-orange-100 shadow-sm space-y-4">
+  <div id="step-1" class="step-card bg-white rounded-3xl p-5 shadow-[0_6px_24px_rgba(120,75,40,0.06)] border border-stone-200/50 space-y-4">
     <div id="group-niche">
-      <label class="block text-sm font-semibold text-slate-800 mb-1">
+      <label class="block text-sm font-semibold text-stone-900 mb-1">
         01. Сфера вашего бизнеса или проекта <span class="text-rose-500 font-bold">*</span>
       </label>
-      <p class="text-xs text-slate-400 mb-2.5">Выберите подходящее направление или опишите своё ниже:</p>
+      <p class="text-xs text-stone-400 mb-2.5">Выберите подходящее направление или опишите своё ниже:</p>
       
       <div class="flex flex-wrap gap-2 mb-3">
-        <button type="button" onclick="toggleChip(this, 'niche')" class="chip px-3 py-1.5 bg-slate-50 border border-slate-200 rounded-xl text-xs text-slate-600 transition">💇 Салоны / Бьюти</button>
-        <button type="button" onclick="toggleChip(this, 'niche')" class="chip px-3 py-1.5 bg-slate-50 border border-slate-200 rounded-xl text-xs text-slate-600 transition">🍽️ Ресторан / Доставка</button>
-        <button type="button" onclick="toggleChip(this, 'niche')" class="chip px-3 py-1.5 bg-slate-50 border border-slate-200 rounded-xl text-xs text-slate-600 transition">🛒 Магазин / E-commerce</button>
-        <button type="button" onclick="toggleChip(this, 'niche')" class="chip px-3 py-1.5 bg-slate-50 border border-slate-200 rounded-xl text-xs text-slate-600 transition">🎓 Онлайн-школа / Эксперт</button>
-        <button type="button" onclick="toggleChip(this, 'niche')" class="chip px-3 py-1.5 bg-slate-50 border border-slate-200 rounded-xl text-xs text-slate-600 transition">🏠 Недвижимость</button>
-        <button type="button" onclick="toggleChip(this, 'niche')" class="chip px-3 py-1.5 bg-slate-50 border border-slate-200 rounded-xl text-xs text-slate-600 transition">🚗 Автосервис / Подбор</button>
-        <button type="button" onclick="toggleChip(this, 'niche')" class="chip px-3 py-1.5 bg-slate-50 border border-slate-200 rounded-xl text-xs text-slate-600 transition">🔨 Ремонт / Строительство</button>
-        <button type="button" onclick="toggleChip(this, 'niche')" class="chip px-3 py-1.5 bg-slate-50 border border-slate-200 rounded-xl text-xs text-slate-600 transition">💼 B2B / Юристы / Услуги</button>
-        <button type="button" onclick="toggleChip(this, 'niche')" class="chip px-3 py-1.5 bg-slate-50 border border-slate-200 rounded-xl text-xs text-slate-600 transition">🧘 Фитнес / Здоровье / Психология</button>
-        <button type="button" onclick="toggleChip(this, 'niche')" class="chip px-3 py-1.5 bg-slate-50 border border-slate-200 rounded-xl text-xs text-slate-600 transition">👥 HR / Найм персонала</button>
-        <button type="button" onclick="toggleChip(this, 'niche')" class="chip px-3 py-1.5 bg-slate-50 border border-slate-200 rounded-xl text-xs text-slate-600 transition">🎟️ Ивенты / Мероприятия</button>
-        <button type="button" onclick="toggleChip(this, 'niche')" class="chip px-3 py-1.5 bg-slate-50 border border-slate-200 rounded-xl text-xs text-slate-600 transition">🌐 Другое направление</button>
+        <button type="button" onclick="toggleChip(this, 'niche')" class="chip px-3 py-1.5 bg-white border border-stone-200 rounded-xl text-xs text-stone-700 hover:border-stone-300 transition">💇 Салоны / Бьюти</button>
+        <button type="button" onclick="toggleChip(this, 'niche')" class="chip px-3 py-1.5 bg-white border border-stone-200 rounded-xl text-xs text-stone-700 hover:border-stone-300 transition">🍽️ Ресторан / Доставка</button>
+        <button type="button" onclick="toggleChip(this, 'niche')" class="chip px-3 py-1.5 bg-white border border-stone-200 rounded-xl text-xs text-stone-700 hover:border-stone-300 transition">🛒 Магазин / E-commerce</button>
+        <button type="button" onclick="toggleChip(this, 'niche')" class="chip px-3 py-1.5 bg-white border border-stone-200 rounded-xl text-xs text-stone-700 hover:border-stone-300 transition">🎓 Онлайн-школа / Эксперт</button>
+        <button type="button" onclick="toggleChip(this, 'niche')" class="chip px-3 py-1.5 bg-white border border-stone-200 rounded-xl text-xs text-stone-700 hover:border-stone-300 transition">🏠 Недвижимость</button>
+        <button type="button" onclick="toggleChip(this, 'niche')" class="chip px-3 py-1.5 bg-white border border-stone-200 rounded-xl text-xs text-stone-700 hover:border-stone-300 transition">🚗 Автосервис / Подбор</button>
+        <button type="button" onclick="toggleChip(this, 'niche')" class="chip px-3 py-1.5 bg-white border border-stone-200 rounded-xl text-xs text-stone-700 hover:border-stone-300 transition">🔨 Ремонт / Строительство</button>
+        <button type="button" onclick="toggleChip(this, 'niche')" class="chip px-3 py-1.5 bg-white border border-stone-200 rounded-xl text-xs text-stone-700 hover:border-stone-300 transition">💼 B2B / Юристы / Услуги</button>
+        <button type="button" onclick="toggleChip(this, 'niche')" class="chip px-3 py-1.5 bg-white border border-stone-200 rounded-xl text-xs text-stone-700 hover:border-stone-300 transition">🧘 Фитнес / Здоровье / Психология</button>
+        <button type="button" onclick="toggleChip(this, 'niche')" class="chip px-3 py-1.5 bg-white border border-stone-200 rounded-xl text-xs text-stone-700 hover:border-stone-300 transition">👥 HR / Найм персонала</button>
+        <button type="button" onclick="toggleChip(this, 'niche')" class="chip px-3 py-1.5 bg-white border border-stone-200 rounded-xl text-xs text-stone-700 hover:border-stone-300 transition">🎟️ Ивенты / Мероприятия</button>
+        <button type="button" onclick="toggleChip(this, 'niche')" class="chip px-3 py-1.5 bg-white border border-stone-200 rounded-xl text-xs text-stone-700 hover:border-stone-300 transition">🌐 Другое направление</button>
       </div>
 
-      <label class="block text-xs font-semibold text-slate-700 mb-1">Опишите проект своими словами (если не нашли в списке):</label>
-      <textarea id="project_desc" rows="3" placeholder="Расскажите о вашей идее или компании: чем занимаетесь, какие услуги продаете, кто ваши клиенты..." class="w-full text-xs p-3 bg-slate-50 border border-slate-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-orange-400 focus:border-orange-500 transition leading-relaxed"></textarea>
+      <label class="block text-xs font-semibold text-stone-700 mb-1">Опишите проект своими словами (если не нашли в списке):</label>
+      <textarea id="project_desc" rows="3" placeholder="Расскажите о вашей идее или компании: чем занимаетесь, какие услуги продаете, кто ваши клиенты..." class="w-full text-xs p-3 bg-white border border-stone-200 rounded-xl text-stone-800 placeholder:text-stone-400 focus:outline-none focus:ring-2 focus:ring-orange-600/20 focus:border-orange-600 transition leading-relaxed"></textarea>
     </div>
 
     <div id="group-automation">
-      <label class="block text-sm font-semibold text-slate-800 mb-1">
+      <label class="block text-sm font-semibold text-stone-900 mb-1">
         Что в первую очередь должен автоматизировать бот? <span class="text-rose-500 font-bold">*</span>
       </label>
-      <p class="text-[11px] text-slate-400 mb-1.5">Какая рутина сейчас отнимает больше всего времени?</p>
-      <textarea id="automation_goal" rows="3" placeholder="Например: сейчас вручную отвечаю на одни и те же вопросы в директе, долго рассчитываю смету, теряются заявки или хочу собирать оплаты без участия менеджера..." class="w-full text-xs p-3 bg-slate-50 border border-slate-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-orange-400 focus:border-orange-500 transition leading-relaxed"></textarea>
+      <p class="text-[11px] text-stone-400 mb-1.5">Какая рутина сейчас отнимает больше всего времени?</p>
+      <textarea id="automation_goal" rows="3" oninput="this.classList.remove('field-error')" placeholder="Например: сейчас вручную отвечаю на одни и те же вопросы в директе, долго рассчитываю смету, теряются заявки или хочу собирать оплаты без участия менеджера..." class="w-full text-xs p-3 bg-white border border-stone-200 rounded-xl text-stone-800 placeholder:text-stone-400 focus:outline-none focus:ring-2 focus:ring-orange-600/20 focus:border-orange-600 transition leading-relaxed"></textarea>
     </div>
   </div>
 
-  <!-- ШАГ 2: Платформы и визуал приветствия -->
-  <div id="step-2" class="step-card bg-white rounded-2xl p-5 border border-orange-100 shadow-sm space-y-4 hidden">
+  <!-- ШАГ 2: Платформы и визуал/контент -->
+  <div id="step-2" class="step-card bg-white rounded-3xl p-5 shadow-[0_6px_24px_rgba(120,75,40,0.06)] border border-stone-200/50 space-y-4 hidden">
     <div id="group-platforms">
-      <label class="block text-sm font-semibold text-slate-800 mb-1">
+      <label class="block text-sm font-semibold text-stone-900 mb-1">
         02. Где должен работать бот? <span class="text-rose-500 font-bold">*</span>
       </label>
-      <p class="text-[11px] text-slate-400 mb-2">Выберите хотя бы одну платформу:</p>
+      <p class="text-[11px] text-stone-400 mb-2">Выберите хотя бы одну платформу:</p>
       <div class="flex flex-wrap gap-2 mb-3">
-        <button type="button" onclick="toggleChip(this, 'platforms')" class="chip px-3 py-1.5 bg-slate-50 border border-slate-200 rounded-xl text-xs text-slate-600 transition chip-active">✈️ Telegram</button>
-        <button type="button" onclick="toggleChip(this, 'platforms')" class="chip px-3 py-1.5 bg-slate-50 border border-slate-200 rounded-xl text-xs text-slate-600 transition">💬 WhatsApp</button>
-        <button type="button" onclick="toggleChip(this, 'platforms')" class="chip px-3 py-1.5 bg-slate-50 border border-slate-200 rounded-xl text-xs text-slate-600 transition">📸 Instagram</button>
-        <button type="button" onclick="toggleChip(this, 'platforms')" class="chip px-3 py-1.5 bg-slate-50 border border-slate-200 rounded-xl text-xs text-slate-600 transition">🔵 ВКонтакте</button>
-        <button type="button" onclick="toggleChip(this, 'platforms')" class="chip px-3 py-1.5 bg-slate-50 border border-slate-200 rounded-xl text-xs text-slate-600 transition">⚡ MAX</button>
-        <button type="button" onclick="toggleChip(this, 'platforms')" class="chip px-3 py-1.5 bg-slate-50 border border-slate-200 rounded-xl text-xs text-slate-600 transition">🌐 Виджет на сайт</button>
-        <button type="button" onclick="toggleChip(this, 'platforms')" class="chip px-3 py-1.5 bg-slate-50 border border-slate-200 rounded-xl text-xs text-slate-600 transition">💻 Нужен лендинг / сайт</button>
+        <button type="button" onclick="toggleChip(this, 'platforms')" class="chip px-3 py-1.5 bg-white border border-stone-200 rounded-xl text-xs text-stone-700 hover:border-stone-300 transition chip-active">✈️ Telegram</button>
+        <button type="button" onclick="toggleChip(this, 'platforms')" class="chip px-3 py-1.5 bg-white border border-stone-200 rounded-xl text-xs text-stone-700 hover:border-stone-300 transition">💬 WhatsApp</button>
+        <button type="button" onclick="toggleChip(this, 'platforms')" class="chip px-3 py-1.5 bg-white border border-stone-200 rounded-xl text-xs text-stone-700 hover:border-stone-300 transition">📸 Instagram</button>
+        <button type="button" onclick="toggleChip(this, 'platforms')" class="chip px-3 py-1.5 bg-white border border-stone-200 rounded-xl text-xs text-stone-700 hover:border-stone-300 transition">🔵 ВКонтакте</button>
+        <button type="button" onclick="toggleChip(this, 'platforms')" class="chip px-3 py-1.5 bg-white border border-stone-200 rounded-xl text-xs text-stone-700 hover:border-stone-300 transition">⚡ MAX</button>
+        <button type="button" onclick="toggleChip(this, 'platforms')" class="chip px-3 py-1.5 bg-white border border-stone-200 rounded-xl text-xs text-stone-700 hover:border-stone-300 transition">🌐 Виджет на сайт</button>
+        <button type="button" onclick="toggleChip(this, 'platforms')" class="chip px-3 py-1.5 bg-white border border-stone-200 rounded-xl text-xs text-stone-700 hover:border-stone-300 transition">💻 Нужен лендинг / сайт</button>
       </div>
     </div>
 
-    <!-- Загрузка приветственного изображения/логотипа -->
+    <!-- Готовность контента и материалов -->
     <div>
-      <label class="block text-sm font-semibold text-slate-800 mb-1">Приветственная картинка или логотип</label>
-      <p class="text-[11px] text-slate-400 mb-2">Баннер, который встречает пользователя при старте</p>
-      
-      <div class="relative border-2 border-dashed border-orange-200 hover:border-orange-400 bg-orange-50/40 rounded-xl p-4 text-center transition cursor-pointer" onclick="document.getElementById('image_upload').click()">
-        <input type="file" id="image_upload" accept="image/*" class="hidden" onchange="handleImageUpload(this)">
-        <div id="upload_placeholder">
-          <span class="text-2xl">🖼️</span>
-          <div class="text-xs font-semibold text-orange-800 mt-1">Прикрепить фото или баннер</div>
-          <div class="text-[10px] text-slate-400 mt-0.5">PNG, JPG до 5 МБ (или пропустите)</div>
-        </div>
-        <div id="upload_preview" class="hidden">
-          <img id="preview_img" class="max-h-28 mx-auto rounded-lg shadow-sm border border-orange-200">
-          <div class="text-[11px] text-orange-600 font-medium mt-1">Фото прикреплено (нажмите, чтобы заменить)</div>
-        </div>
-      </div>
-    </div>
-
-    <div>
-      <label class="block text-sm font-semibold text-slate-800 mb-1">Текст первого сообщения (приветствие)</label>
-      <textarea id="start_message" rows="2" placeholder="Пример: «Привет! Я бот студии красоты, помогу записаться на процедуру или выбрать мастера...»" class="w-full text-xs p-3 bg-slate-50 border border-slate-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-orange-400 focus:border-orange-500 transition"></textarea>
-    </div>
-
-    <div>
-      <label class="block text-sm font-semibold text-slate-800 mb-1">Кнопки главного меню</label>
+      <label class="block text-sm font-semibold text-stone-900 mb-1">Готовы ли материалы для бота?</label>
+      <p class="text-[11px] text-stone-400 mb-2">Аватарка, баннер при входе, фото, аудио или видео для воронки (если нужны):</p>
       <div class="flex flex-wrap gap-2">
-        <button type="button" onclick="toggleChip(this, 'buttons')" class="chip px-3 py-1.5 bg-slate-50 border border-slate-200 rounded-xl text-xs text-slate-600 transition">Каталог / Услуги</button>
-        <button type="button" onclick="toggleChip(this, 'buttons')" class="chip px-3 py-1.5 bg-slate-50 border border-slate-200 rounded-xl text-xs text-slate-600 transition">Онлайн-запись</button>
-        <button type="button" onclick="toggleChip(this, 'buttons')" class="chip px-3 py-1.5 bg-slate-50 border border-slate-200 rounded-xl text-xs text-slate-600 transition">Калькулятор цен</button>
-        <button type="button" onclick="toggleChip(this, 'buttons')" class="chip px-3 py-1.5 bg-slate-50 border border-slate-200 rounded-xl text-xs text-slate-600 transition">Оставить заявку</button>
-        <button type="button" onclick="toggleChip(this, 'buttons')" class="chip px-3 py-1.5 bg-slate-50 border border-slate-200 rounded-xl text-xs text-slate-600 transition">Отзывы и кейсы</button>
-        <button type="button" onclick="toggleChip(this, 'buttons')" class="chip px-3 py-1.5 bg-slate-50 border border-slate-200 rounded-xl text-xs text-slate-600 transition">Связаться с менеджером</button>
+        <button type="button" onclick="selectSingleChip(this, 'content_ready')" class="chip px-3 py-1.5 bg-white border border-stone-200 rounded-xl text-xs text-stone-700 hover:border-stone-300 transition">✅ Да, материалы уже есть</button>
+        <button type="button" onclick="selectSingleChip(this, 'content_ready')" class="chip px-3 py-1.5 bg-white border border-stone-200 rounded-xl text-xs text-stone-700 hover:border-stone-300 transition">⏳ Пока нет / нужна помощь</button>
+      </div>
+    </div>
+
+    <div>
+      <label class="block text-sm font-semibold text-stone-900 mb-1">Текст первого сообщения (приветствие)</label>
+      <textarea id="start_message" rows="2" placeholder="Пример: «Привет! Я бот студии красоты, помогу записаться на процедуру или выбрать мастера...»" class="w-full text-xs p-3 bg-white border border-stone-200 rounded-xl text-stone-800 placeholder:text-stone-400 focus:outline-none focus:ring-2 focus:ring-orange-600/20 focus:border-orange-600 transition"></textarea>
+    </div>
+
+    <div>
+      <label class="block text-sm font-semibold text-stone-900 mb-1">Кнопки главного меню</label>
+      <div class="flex flex-wrap gap-2">
+        <button type="button" onclick="toggleChip(this, 'buttons')" class="chip px-3 py-1.5 bg-white border border-stone-200 rounded-xl text-xs text-stone-700 hover:border-stone-300 transition">Каталог / Услуги</button>
+        <button type="button" onclick="toggleChip(this, 'buttons')" class="chip px-3 py-1.5 bg-white border border-stone-200 rounded-xl text-xs text-stone-700 hover:border-stone-300 transition">Онлайн-запись</button>
+        <button type="button" onclick="toggleChip(this, 'buttons')" class="chip px-3 py-1.5 bg-white border border-stone-200 rounded-xl text-xs text-stone-700 hover:border-stone-300 transition">Калькулятор цен</button>
+        <button type="button" onclick="toggleChip(this, 'buttons')" class="chip px-3 py-1.5 bg-white border border-stone-200 rounded-xl text-xs text-stone-700 hover:border-stone-300 transition">Оставить заявку</button>
+        <button type="button" onclick="toggleChip(this, 'buttons')" class="chip px-3 py-1.5 bg-white border border-stone-200 rounded-xl text-xs text-stone-700 hover:border-stone-300 transition">Отзывы и кейсы</button>
+        <button type="button" onclick="toggleChip(this, 'buttons')" class="chip px-3 py-1.5 bg-white border border-stone-200 rounded-xl text-xs text-stone-700 hover:border-stone-300 transition">Связаться с менеджером</button>
       </div>
     </div>
   </div>
 
   <!-- ШАГ 3: Базовые функции и модули -->
-  <div id="step-3" class="step-card bg-white rounded-2xl p-5 border border-orange-100 shadow-sm space-y-4 hidden">
+  <div id="step-3" class="step-card bg-white rounded-3xl p-5 shadow-[0_6px_24px_rgba(120,75,40,0.06)] border border-stone-200/50 space-y-4 hidden">
     <div>
-      <label class="block text-sm font-semibold text-slate-800 mb-1">03. Базовые модули и функции</label>
-      <p class="text-xs text-slate-400 mb-3">Выберите нужные опции:</p>
+      <label class="block text-sm font-semibold text-stone-900 mb-1">03. Базовые модули и функции</label>
+      <p class="text-xs text-stone-400 mb-3">Выберите нужные опции:</p>
       
       <div class="space-y-3">
         <!-- Оплата -->
-        <div class="flex items-center justify-between p-3.5 bg-slate-50 rounded-2xl border border-slate-200/80 transition hover:border-orange-200">
+        <div class="flex items-center justify-between p-3.5 bg-stone-50/80 rounded-2xl border border-stone-200/80 transition hover:border-orange-300/70">
           <div class="flex items-center gap-3 pr-2">
             <span class="text-xl">💳</span>
             <div>
-              <div class="text-xs font-bold text-slate-800">Прием платежей</div>
-              <div class="text-[11px] text-slate-500">ЮKassa, Prodamus, Robokassa, СБП, крипта</div>
+              <div class="text-xs font-bold text-stone-800">Прием платежей</div>
+              <div class="text-[11px] text-stone-500">ЮKassa, Prodamus, Robokassa, СБП, крипта</div>
             </div>
           </div>
           <label class="relative inline-flex items-center cursor-pointer flex-shrink-0">
             <input type="checkbox" id="feature_payments" class="sr-only peer">
-            <div class="w-11 h-6 bg-slate-200 peer-focus:outline-none rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-slate-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-orange-500"></div>
+            <div class="w-11 h-6 bg-stone-200 peer-focus:outline-none rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-stone-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-orange-600"></div>
           </label>
         </div>
 
         <!-- CRM и Таблицы -->
-        <div class="flex items-center justify-between p-3.5 bg-slate-50 rounded-2xl border border-slate-200/80 transition hover:border-orange-200">
+        <div class="flex items-center justify-between p-3.5 bg-stone-50/80 rounded-2xl border border-stone-200/80 transition hover:border-orange-300/70">
           <div class="flex items-center gap-3 pr-2">
             <span class="text-xl">📊</span>
             <div>
-              <div class="text-xs font-bold text-slate-800">Интеграция с CRM / Таблицами</div>
-              <div class="text-[11px] text-slate-500">Google Sheets, amoCRM, Bitrix24, МойСклад</div>
+              <div class="text-xs font-bold text-stone-800">Интеграция с CRM / Таблицами</div>
+              <div class="text-[11px] text-stone-500">Google Sheets, amoCRM, Bitrix24, МойСклад</div>
             </div>
           </div>
           <label class="relative inline-flex items-center cursor-pointer flex-shrink-0">
             <input type="checkbox" id="feature_crm" class="sr-only peer">
-            <div class="w-11 h-6 bg-slate-200 peer-focus:outline-none rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-slate-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-orange-500"></div>
+            <div class="w-11 h-6 bg-stone-200 peer-focus:outline-none rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-stone-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-orange-600"></div>
           </label>
         </div>
 
         <!-- Автоворонки и рассылки -->
-        <div class="flex items-center justify-between p-3.5 bg-slate-50 rounded-2xl border border-slate-200/80 transition hover:border-orange-200">
+        <div class="flex items-center justify-between p-3.5 bg-stone-50/80 rounded-2xl border border-stone-200/80 transition hover:border-orange-300/70">
           <div class="flex items-center gap-3 pr-2">
             <span class="text-xl">⏰</span>
             <div>
-              <div class="text-xs font-bold text-slate-800">Авторассылки и автоворонки</div>
-              <div class="text-[11px] text-slate-500">Сообщения по расписанию, прогревы, дожимы</div>
+              <div class="text-xs font-bold text-stone-800">Авторассылки и автоворонки</div>
+              <div class="text-[11px] text-stone-500">Сообщения по расписанию, прогревы, дожимы</div>
             </div>
           </div>
           <label class="relative inline-flex items-center cursor-pointer flex-shrink-0">
             <input type="checkbox" id="feature_broadcast" class="sr-only peer">
-            <div class="w-11 h-6 bg-slate-200 peer-focus:outline-none rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-slate-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-orange-500"></div>
+            <div class="w-11 h-6 bg-stone-200 peer-focus:outline-none rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-stone-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-orange-600"></div>
           </label>
         </div>
 
         <!-- Mini App интерфейс -->
-        <div class="flex items-center justify-between p-3.5 bg-slate-50 rounded-2xl border border-slate-200/80 transition hover:border-orange-200">
+        <div class="flex items-center justify-between p-3.5 bg-stone-50/80 rounded-2xl border border-stone-200/80 transition hover:border-orange-300/70">
           <div class="flex items-center gap-3 pr-2">
             <span class="text-xl">📱</span>
             <div>
-              <div class="text-xs font-bold text-slate-800">Telegram Mini App (TMA)</div>
-              <div class="text-[11px] text-slate-500">Интерактивный каталог с корзиной, свайпами</div>
+              <div class="text-xs font-bold text-stone-800">Telegram Mini App (TMA)</div>
+              <div class="text-[11px] text-stone-500">Интерактивный каталог с корзиной, свайпами</div>
             </div>
           </div>
           <label class="relative inline-flex items-center cursor-pointer flex-shrink-0">
             <input type="checkbox" id="feature_miniapp" class="sr-only peer">
-            <div class="w-11 h-6 bg-slate-200 peer-focus:outline-none rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-slate-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-orange-500"></div>
+            <div class="w-11 h-6 bg-stone-200 peer-focus:outline-none rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-stone-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-orange-600"></div>
           </label>
         </div>
 
         <!-- Закрытый клуб / Доступ по подписке -->
-        <div class="flex items-center justify-between p-3.5 bg-slate-50 rounded-2xl border border-slate-200/80 transition hover:border-orange-200">
+        <div class="flex items-center justify-between p-3.5 bg-stone-50/80 rounded-2xl border border-stone-200/80 transition hover:border-orange-300/70">
           <div class="flex items-center gap-3 pr-2">
             <span class="text-xl">🔒</span>
             <div>
-              <div class="text-xs font-bold text-slate-800">Закрытый канал / Платная подписка</div>
-              <div class="text-[11px] text-slate-500">Автодобавление и удаление при неуплате</div>
+              <div class="text-xs font-bold text-stone-800">Закрытый канал / Платная подписка</div>
+              <div class="text-[11px] text-stone-500">Автодобавление и удаление при неуплате</div>
             </div>
           </div>
           <label class="relative inline-flex items-center cursor-pointer flex-shrink-0">
             <input type="checkbox" id="feature_club" class="sr-only peer">
-            <div class="w-11 h-6 bg-slate-200 peer-focus:outline-none rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-slate-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-orange-500"></div>
+            <div class="w-11 h-6 bg-stone-200 peer-focus:outline-none rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-stone-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-orange-600"></div>
           </label>
         </div>
       </div>
@@ -233,144 +224,146 @@
   </div>
 
   <!-- ШАГ 4: Искусственный Интеллект и нейросети -->
-  <div id="step-4" class="step-card bg-white rounded-2xl p-5 border border-orange-100 shadow-sm space-y-4 hidden">
+  <div id="step-4" class="step-card bg-white rounded-3xl p-5 shadow-[0_6px_24px_rgba(120,75,40,0.06)] border border-stone-200/50 space-y-4 hidden">
     <div>
-      <div class="inline-block px-2.5 py-0.5 bg-amber-100 text-amber-800 rounded-full text-[10px] font-bold uppercase tracking-wider mb-1">Инновации</div>
-      <label class="block text-sm font-semibold text-slate-800 mb-1">04. ИИ-функции (Искусственный Интеллект)</label>
-      <p class="text-xs text-slate-400 mb-3">Сделайте бота «умным» с помощью языковых моделей:</p>
+      <div class="inline-block px-2.5 py-0.5 bg-orange-100/80 text-orange-800 rounded-full text-[10px] font-bold uppercase tracking-wider mb-1">Инновации</div>
+      <label class="block text-sm font-semibold text-stone-900 mb-1">04. ИИ-функции (Искусственный Интеллект)</label>
+      <p class="text-xs text-stone-400 mb-3">Сделайте бота «умным» с помощью языковых моделей:</p>
 
       <div class="space-y-3 mb-4">
         <!-- ИИ-продавец -->
-        <div class="flex items-center justify-between p-3.5 bg-amber-50/50 rounded-2xl border border-amber-200/80 transition hover:border-amber-300">
+        <div class="flex items-center justify-between p-3.5 bg-orange-50/40 rounded-2xl border border-orange-200/60 transition hover:border-orange-300">
           <div class="flex items-center gap-3 pr-2">
             <span class="text-xl">🤖</span>
             <div>
-              <div class="text-xs font-bold text-slate-800">ИИ-продавец / Консультант 24/7</div>
-              <div class="text-[11px] text-slate-500">Отвечает на любые вопросы по базе знаний компании</div>
+              <div class="text-xs font-bold text-stone-800">ИИ-продавец / Консультант 24/7</div>
+              <div class="text-[11px] text-stone-500">Отвечает на любые вопросы по базе знаний компании</div>
             </div>
           </div>
           <label class="relative inline-flex items-center cursor-pointer flex-shrink-0">
             <input type="checkbox" id="ai_seller" class="sr-only peer">
-            <div class="w-11 h-6 bg-slate-200 peer-focus:outline-none rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-slate-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-orange-500"></div>
+            <div class="w-11 h-6 bg-stone-200 peer-focus:outline-none rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-stone-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-orange-600"></div>
           </label>
         </div>
 
         <!-- Распознавание голосовых -->
-        <div class="flex items-center justify-between p-3.5 bg-amber-50/50 rounded-2xl border border-amber-200/80 transition hover:border-amber-300">
+        <div class="flex items-center justify-between p-3.5 bg-orange-50/40 rounded-2xl border border-orange-200/60 transition hover:border-orange-300">
           <div class="flex items-center gap-3 pr-2">
             <span class="text-xl">🎙️</span>
             <div>
-              <div class="text-xs font-bold text-slate-800">Прием голосовых сообщений</div>
-              <div class="text-[11px] text-slate-500">Клиент говорит голосом — бот распознает и сохраняет</div>
+              <div class="text-xs font-bold text-stone-800">Прием голосовых сообщений</div>
+              <div class="text-[11px] text-stone-500">Клиент говорит голосом — бот распознает и сохраняет</div>
             </div>
           </div>
           <label class="relative inline-flex items-center cursor-pointer flex-shrink-0">
             <input type="checkbox" id="ai_voice" class="sr-only peer">
-            <div class="w-11 h-6 bg-slate-200 peer-focus:outline-none rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-slate-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-orange-500"></div>
+            <div class="w-11 h-6 bg-stone-200 peer-focus:outline-none rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-stone-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-orange-600"></div>
           </label>
         </div>
 
         <!-- ИИ-автопостинг -->
-        <div class="flex items-center justify-between p-3.5 bg-amber-50/50 rounded-2xl border border-amber-200/80 transition hover:border-amber-300">
+        <div class="flex items-center justify-between p-3.5 bg-orange-50/40 rounded-2xl border border-orange-200/60 transition hover:border-orange-300">
           <div class="flex items-center gap-3 pr-2">
             <span class="text-xl">📢</span>
             <div>
-              <div class="text-xs font-bold text-slate-800">ИИ-автопостинг и контент</div>
-              <div class="text-[11px] text-slate-500">Генерация и публикация постов в Telegram-канал</div>
+              <div class="text-xs font-bold text-stone-800">ИИ-автопостинг и контент</div>
+              <div class="text-[11px] text-stone-500">Генерация и публикация постов в Telegram-канал</div>
             </div>
           </div>
           <label class="relative inline-flex items-center cursor-pointer flex-shrink-0">
             <input type="checkbox" id="ai_autoposting" class="sr-only peer">
-            <div class="w-11 h-6 bg-slate-200 peer-focus:outline-none rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-slate-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-orange-500"></div>
+            <div class="w-11 h-6 bg-stone-200 peer-focus:outline-none rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-stone-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-orange-600"></div>
           </label>
         </div>
 
         <!-- Анализ фото и документов -->
-        <div class="flex items-center justify-between p-3.5 bg-amber-50/50 rounded-2xl border border-amber-200/80 transition hover:border-amber-300">
+        <div class="flex items-center justify-between p-3.5 bg-orange-50/40 rounded-2xl border border-orange-200/60 transition hover:border-orange-300">
           <div class="flex items-center gap-3 pr-2">
             <span class="text-xl">📄</span>
             <div>
-              <div class="text-xs font-bold text-slate-800">Анализ фото и накладных</div>
-              <div class="text-[11px] text-slate-500">Распознавание текста с чеков, фото счетчиков, накладных</div>
+              <div class="text-xs font-bold text-stone-800">Анализ фото и накладных</div>
+              <div class="text-[11px] text-stone-500">Распознавание текста с чеков, фото счетчиков, накладных</div>
             </div>
           </div>
           <label class="relative inline-flex items-center cursor-pointer flex-shrink-0">
             <input type="checkbox" id="ai_vision" class="sr-only peer">
-            <div class="w-11 h-6 bg-slate-200 peer-focus:outline-none rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-slate-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-orange-500"></div>
+            <div class="w-11 h-6 bg-stone-200 peer-focus:outline-none rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-stone-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-orange-600"></div>
           </label>
         </div>
       </div>
 
-      <label class="block text-xs font-semibold text-slate-700 mb-1">Как именно ИИ должен работать в вашем боте?</label>
-      <textarea id="ai_details" rows="2" placeholder="Например: хочу загрузить PDF с регламентом компании, чтобы ИИ отвечал клиентам строго по нему..." class="w-full text-xs p-3 bg-slate-50 border border-slate-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-orange-400 focus:border-orange-500 transition"></textarea>
+      <label class="block text-xs font-semibold text-stone-700 mb-1">Как именно ИИ должен работать в вашем боте?</label>
+      <textarea id="ai_details" rows="2" placeholder="Например: хочу загрузить PDF с регламентом компании, чтобы ИИ отвечал клиентам строго по нему..." class="w-full text-xs p-3 bg-white border border-stone-200 rounded-xl text-stone-800 placeholder:text-stone-400 focus:outline-none focus:ring-2 focus:ring-orange-600/20 focus:border-orange-600 transition"></textarea>
     </div>
   </div>
 
   <!-- ШАГ 5: Сроки, бюджет и свободный финал -->
-  <div id="step-5" class="step-card bg-white rounded-2xl p-5 border border-orange-100 shadow-sm space-y-4 hidden">
+  <div id="step-5" class="step-card bg-white rounded-3xl p-5 shadow-[0_6px_24px_rgba(120,75,40,0.06)] border border-stone-200/50 space-y-4 hidden">
     <!-- Сроки разработки -->
     <div>
-      <label class="block text-sm font-semibold text-slate-800 mb-1">05. Желаемые сроки запуска (необязательно)</label>
-      <p class="text-[11px] text-slate-400 mb-2">Выберите срок или оставьте пустым:</p>
+      <label class="block text-sm font-semibold text-stone-900 mb-1">05. Желаемые сроки запуска (необязательно)</label>
+      <p class="text-[11px] text-stone-400 mb-2">Выберите срок или оставьте пустым:</p>
       <div class="flex flex-wrap gap-2 mb-3">
-        <button type="button" onclick="toggleChip(this, 'deadline')" class="chip px-3 py-1.5 bg-slate-50 border border-slate-200 rounded-xl text-xs text-slate-600 transition">⚡ 1–3 дня (Срочно)</button>
-        <button type="button" onclick="toggleChip(this, 'deadline')" class="chip px-3 py-1.5 bg-slate-50 border border-slate-200 rounded-xl text-xs text-slate-600 transition">🚀 3–5 дней</button>
-        <button type="button" onclick="toggleChip(this, 'deadline')" class="chip px-3 py-1.5 bg-slate-50 border border-slate-200 rounded-xl text-xs text-slate-600 transition">📅 5–7 дней</button>
-        <button type="button" onclick="toggleChip(this, 'deadline')" class="chip px-3 py-1.5 bg-slate-50 border border-slate-200 rounded-xl text-xs text-slate-600 transition">🗓️ 1–2 недели</button>
+        <button type="button" onclick="toggleChip(this, 'deadline')" class="chip px-3 py-1.5 bg-white border border-stone-200 rounded-xl text-xs text-stone-700 hover:border-stone-300 transition">⚡ 1–3 дня (Срочно)</button>
+        <button type="button" onclick="toggleChip(this, 'deadline')" class="chip px-3 py-1.5 bg-white border border-stone-200 rounded-xl text-xs text-stone-700 hover:border-stone-300 transition">🚀 3–5 дней</button>
+        <button type="button" onclick="toggleChip(this, 'deadline')" class="chip px-3 py-1.5 bg-white border border-stone-200 rounded-xl text-xs text-stone-700 hover:border-stone-300 transition">📅 5–7 дней</button>
+        <button type="button" onclick="toggleChip(this, 'deadline')" class="chip px-3 py-1.5 bg-white border border-stone-200 rounded-xl text-xs text-stone-700 hover:border-stone-300 transition">🗓️ 1–2 недели</button>
       </div>
     </div>
 
     <!-- Бюджет -->
     <div id="group-budget">
-      <label class="block text-sm font-semibold text-slate-800 mb-1">
+      <label class="block text-sm font-semibold text-stone-900 mb-1">
         Ориентир по бюджету <span class="text-rose-500 font-bold">*</span>
       </label>
-      <p class="text-[11px] text-slate-400 mb-2">Выберите вилку или нажмите «Нужна консультация»:</p>
+      <p class="text-[11px] text-stone-400 mb-2">Выберите вилку или нажмите «Нужна консультация»:</p>
       <div class="flex flex-wrap gap-2 mb-3">
-        <button type="button" onclick="toggleChip(this, 'budget')" class="chip px-3 py-1.5 bg-slate-50 border border-slate-200 rounded-xl text-xs text-slate-600 transition">До 30 000 ₽</button>
-        <button type="button" onclick="toggleChip(this, 'budget')" class="chip px-3 py-1.5 bg-slate-50 border border-slate-200 rounded-xl text-xs text-slate-600 transition">30 000 – 60 000 ₽</button>
-        <button type="button" onclick="toggleChip(this, 'budget')" class="chip px-3 py-1.5 bg-slate-50 border border-slate-200 rounded-xl text-xs text-slate-600 transition">60 000 – 100 000 ₽</button>
-        <button type="button" onclick="toggleChip(this, 'budget')" class="chip px-3 py-1.5 bg-slate-50 border border-slate-200 rounded-xl text-xs text-slate-600 transition">От 100 000 ₽</button>
-        <button type="button" onclick="toggleChip(this, 'budget')" class="chip px-3 py-1.5 bg-slate-50 border border-slate-200 rounded-xl text-xs text-slate-600 transition">Нужна консультация</button>
+        <button type="button" onclick="toggleChip(this, 'budget')" class="chip px-3 py-1.5 bg-white border border-stone-200 rounded-xl text-xs text-stone-700 hover:border-stone-300 transition">До 30 000 ₽</button>
+        <button type="button" onclick="toggleChip(this, 'budget')" class="chip px-3 py-1.5 bg-white border border-stone-200 rounded-xl text-xs text-stone-700 hover:border-stone-300 transition">30 000 – 60 000 ₽</button>
+        <button type="button" onclick="toggleChip(this, 'budget')" class="chip px-3 py-1.5 bg-white border border-stone-200 rounded-xl text-xs text-stone-700 hover:border-stone-300 transition">60 000 – 100 000 ₽</button>
+        <button type="button" onclick="toggleChip(this, 'budget')" class="chip px-3 py-1.5 bg-white border border-stone-200 rounded-xl text-xs text-stone-700 hover:border-stone-300 transition">От 100 000 ₽</button>
+        <button type="button" onclick="toggleChip(this, 'budget')" class="chip px-3 py-1.5 bg-white border border-stone-200 rounded-xl text-xs text-stone-700 hover:border-stone-300 transition">Нужна консультация</button>
       </div>
     </div>
 
     <!-- Примеры / На что должно быть похоже -->
     <div>
-      <label class="block text-sm font-semibold text-slate-800 mb-1">Примеры ботов или сайтов, которые вам нравятся</label>
-      <p class="text-[11px] text-slate-400 mb-1.5">Если есть на что опереться — скиньте сюда, так мы быстрее поймем задачу</p>
-      <textarea id="references" rows="2" oninput="if (this.scrollHeight > this.clientHeight) { this.style.height = (this.scrollHeight + 4) + 'px'; }" placeholder="@username ботов, ссылки или «хочу похоже на...»" class="w-full text-xs p-3 bg-slate-50 border border-slate-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-orange-400 focus:border-orange-500 transition leading-relaxed resize-y"></textarea>
+      <label class="block text-sm font-semibold text-stone-900 mb-1">Примеры ботов или сайтов, которые вам нравятся</label>
+      <p class="text-[11px] text-stone-400 mb-1.5">Для лучшего понимания можете скинуть ссылки на проекты, которые максимально отражают желаемый функционал и механику</p>
+      <textarea id="references" rows="2" oninput="if (this.scrollHeight > this.clientHeight) { this.style.height = (this.scrollHeight + 4) + 'px'; }" placeholder="@username ботов, ссылки или «хочу похоже на...»" class="w-full text-xs p-3 bg-white border border-stone-200 rounded-xl text-stone-800 placeholder:text-stone-400 focus:outline-none focus:ring-2 focus:ring-orange-600/20 focus:border-orange-600 transition leading-relaxed resize-y"></textarea>
     </div>
 
-    <!-- Удобный способ связи и контакт -->
+    <!-- Контактное лицо (обязательное поле) -->
     <div>
-      <label class="block text-sm font-semibold text-slate-800 mb-1">Удобный способ связи и контакт (необязательно)</label>
-      <p class="text-[11px] text-slate-400 mb-1.5">По умолчанию отвечу вам здесь, в Telegram. Если удобнее WhatsApp, MAX или созвон — напишите:</p>
-      <input type="text" id="client_contact" placeholder="Например: +7 999 000-00-00 (WhatsApp) или удобное время" class="w-full text-xs p-3 bg-slate-50 border border-slate-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-orange-400 focus:border-orange-500 transition">
+      <label class="block text-sm font-semibold text-stone-900 mb-1">
+        Контактное лицо (Имя и телефон/ник) <span class="text-rose-500 font-bold">*</span>
+      </label>
+      <p class="text-[11px] text-stone-400 mb-1.5">По умолчанию отвечу вам здесь, в Telegram. Если удобнее WhatsApp, MAX или созвон — напишите:</p>
+      <input type="text" id="client_contact" oninput="this.classList.remove('field-error')" placeholder="Александр, +7 999 123-45-67 или @ник" class="w-full text-xs p-3 bg-white border border-stone-200 rounded-xl text-stone-800 placeholder:text-stone-400 focus:outline-none focus:ring-2 focus:ring-orange-600/20 focus:border-orange-600 transition">
     </div>
 
     <!-- Итоговый свободный комментарий -->
     <div>
-      <label class="block text-sm font-semibold text-slate-800 mb-1">Что-то важное, о чем мы забыли спросить?</label>
-      <p class="text-[11px] text-slate-400 mb-1.5">Любые пожелания, особые условия или нестандартные требования</p>
-      <textarea id="final_comment" rows="3" placeholder="Напишите здесь всё, что считаете важным для проекта..." class="w-full text-xs p-3 bg-slate-50 border border-slate-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-orange-400 focus:border-orange-500 transition leading-relaxed"></textarea>
+      <label class="block text-sm font-semibold text-stone-900 mb-1">Что-то важное, о чем мы забыли спросить?</label>
+      <p class="text-[11px] text-stone-400 mb-1.5">Любые пожелания, особые условия или нестандартные требования</p>
+      <textarea id="final_comment" rows="3" placeholder="Напишите здесь всё, что считаете важным для проекта..." class="w-full text-xs p-3 bg-white border border-stone-200 rounded-xl text-stone-800 placeholder:text-stone-400 focus:outline-none focus:ring-2 focus:ring-orange-600/20 focus:border-orange-600 transition leading-relaxed"></textarea>
     </div>
 
-    <div class="p-3 bg-orange-50 rounded-xl border border-orange-200 text-xs text-orange-800 space-y-1">
+    <div class="p-3.5 bg-orange-50/70 rounded-xl border border-orange-200/70 text-xs text-orange-950 space-y-1">
       <div class="font-semibold flex items-center gap-1.5"><span>✨</span> ТЗ готово к отправке разработчику!</div>
-      <p class="text-[11px] text-orange-700 leading-snug">После нажатия кнопки окно закроется, а заявка мгновенно поступит разработчику.</p>
+      <p class="text-[11px] text-orange-800/80 leading-snug">После нажатия кнопки окно закроется, а заявка мгновенно поступит разработчику.</p>
     </div>
   </div>
 
   <!-- Фиксированное нижнее меню навигации -->
-  <div class="fixed bottom-0 left-0 right-0 p-4 bg-white/95 backdrop-blur-md border-t border-orange-100 flex items-center justify-between max-w-md mx-auto z-40">
-    <button type="button" id="prev-btn" onclick="prevStep()" class="text-xs font-semibold text-slate-500 px-4 py-2.5 rounded-xl transition hover:bg-slate-100 hidden">
+  <div class="fixed bottom-0 left-0 right-0 p-4 bg-[#f8f1ea]/90 backdrop-blur-md border-t border-stone-200/80 flex items-center justify-between max-w-md mx-auto z-40">
+    <button type="button" id="prev-btn" onclick="prevStep()" class="text-xs font-semibold text-stone-500 px-4 py-2.5 rounded-xl transition hover:bg-stone-200/50 hidden">
       ← Назад
     </button>
-    <button type="button" id="skip-btn" onclick="skipStep()" class="text-xs text-slate-400 hover:text-slate-600 px-3 py-2 transition">
+    <button type="button" id="skip-btn" onclick="skipStep()" class="text-xs text-stone-400 hover:text-stone-600 px-3 py-2 transition">
       Пропустить
     </button>
-    <button type="button" id="next-btn" onclick="nextStep()" class="text-xs font-bold text-white accent-gradient px-6 py-2.5 rounded-xl shadow-md transition transform active:scale-95 ml-auto">
+    <button type="button" id="next-btn" onclick="nextStep()" class="text-xs font-bold text-white accent-gradient px-6 py-2.5 rounded-xl shadow-md shadow-orange-700/20 transition transform active:scale-95 ml-auto">
       Далее →
     </button>
   </div>
@@ -384,11 +377,11 @@
 
     let currentStep = 1;
     const totalSteps = 5;
-    let uploadedImageName = "";
 
     const selectedChips = {
       niche: [],
       platforms: ['✈️ Telegram'],
+      content_ready: [],
       buttons: [],
       deadline: [],
       budget: []
@@ -396,7 +389,7 @@
 
     const stepTitles = [
       "Сфера и проект",
-      "Платформы и визуал",
+      "Платформы и контент",
       "Базовые модули",
       "ИИ и нейросети",
       "Сроки и бюджет"
@@ -434,18 +427,19 @@
       }
     }
 
-    function handleImageUpload(input) {
-      if (input.files && input.files[0]) {
-        haptic();
-        const file = input.files[0];
-        uploadedImageName = file.name;
-        const reader = new FileReader();
-        reader.onload = function(e) {
-          document.getElementById('preview_img').src = e.target.result;
-          document.getElementById('upload_placeholder').classList.add('hidden');
-          document.getElementById('upload_preview').classList.remove('hidden');
-        };
-        reader.readAsDataURL(file);
+    function selectSingleChip(btn, category) {
+      haptic();
+      const container = btn.parentElement;
+      const allBtns = container.querySelectorAll('.chip');
+      const wasActive = btn.classList.contains('chip-active');
+
+      allBtns.forEach(b => b.classList.remove('chip-active'));
+
+      if (!wasActive) {
+        btn.classList.add('chip-active');
+        selectedChips[category] = [btn.textContent.trim()];
+      } else {
+        selectedChips[category] = [];
       }
     }
 
@@ -481,6 +475,16 @@
           document.getElementById('group-budget').scrollIntoView({ behavior: 'smooth' });
           return false;
         }
+
+        const contactInput = document.getElementById('client_contact');
+        if (contactInput.value.trim().length === 0) {
+          showToast('Пожалуйста, укажите контактное лицо (Имя и телефон/ник)');
+          contactInput.classList.add('field-error');
+          contactInput.scrollIntoView({ behavior: 'smooth', block: 'center' });
+          contactInput.focus();
+          return false;
+        }
+        contactInput.classList.remove('field-error');
       }
 
       return true;
@@ -564,7 +568,7 @@
         project_desc: document.getElementById('project_desc').value || 'Не заполнено',
         automation_goal: document.getElementById('automation_goal').value || 'Не заполнено',
         platforms: selectedChips.platforms.join(', ') || 'Telegram',
-        has_banner: uploadedImageName ? `Да (файл: ${uploadedImageName})` : 'Нет / не прикреплено',
+        has_banner: selectedChips.content_ready[0] || 'Не указано / обсудим позже',
         start_message: document.getElementById('start_message').value || 'По согласованию',
         buttons: selectedChips.buttons.join(', ') || 'Стандартные',
         features: {
@@ -584,7 +588,7 @@
         deadline: selectedChips.deadline.join(', ') || 'Без жестких сроков / обсуждается',
         budget: selectedChips.budget.join(', ') || 'На обсуждении',
         references: document.getElementById('references').value.trim() || 'Не указаны',
-        client_contact: document.getElementById('client_contact').value.trim() || 'Написать здесь, в Telegram',
+        client_contact: document.getElementById('client_contact').value.trim(),
         final_comment: document.getElementById('final_comment').value.trim() || 'Нет комментариев'
       };
 
