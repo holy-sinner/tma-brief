@@ -339,7 +339,7 @@
     <div>
       <label class="block text-sm font-semibold text-slate-800 mb-1">Примеры ботов или сайтов, которые вам нравятся</label>
       <p class="text-[11px] text-slate-400 mb-1.5">Если есть на что опереться — скиньте сюда, так мы быстрее поймем задачу</p>
-      <input type="text" id="references" placeholder="@username ботов, ссылки или «хочу похоже на...»" class="w-full text-xs p-3 bg-slate-50 border border-slate-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-orange-400 focus:border-orange-500 transition">
+      <textarea id="references" rows="2" oninput="if (this.scrollHeight > this.clientHeight) { this.style.height = (this.scrollHeight + 4) + 'px'; }" placeholder="@username ботов, ссылки или «хочу похоже на...»" class="w-full text-xs p-3 bg-slate-50 border border-slate-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-orange-400 focus:border-orange-500 transition leading-relaxed resize-y"></textarea>
     </div>
 
     <!-- Удобный способ связи и контакт -->
